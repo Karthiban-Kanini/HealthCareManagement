@@ -10,6 +10,7 @@ using Hospital.Services;
 using System.Collections.Generic;
 using Hospital.Models.DTO;
 using Hospital.Services;
+using Microsoft.OpenApi.Models;
 
 namespace Hospital
 {
@@ -61,6 +62,34 @@ namespace Hospital
                 });
             });
 
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                 {
+                     {
+                           new OpenApiSecurityScheme
+                             {
+                                 Reference = new OpenApiReference
+                                 {
+                                     Type = ReferenceType.SecurityScheme,
+                                     Id = "Bearer"
+                                 }
+                             },
+                             new string[] {}
+
+                     }
+        });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -70,10 +99,12 @@ namespace Hospital
                 app.UseSwaggerUI();
             }
 
-            app.UseAuthorization();
+            
 
-            app.UseCors();
+           
             app.UseAuthentication();
+            app.UseCors("MyCors");
+            app.UseAuthorization();
             app.MapControllers();
             app.Run();
         }

@@ -1,6 +1,7 @@
 import { Card, Box, styled, Button } from '@mui/material';
 import { InputComponent, SelectComponent } from 'components';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Container = styled(Card)(() => ({
   width: '100%',
@@ -41,10 +42,35 @@ const CustomButton = styled(Button)({
 
 const AppointmentForm = () => {
   const navigate = useNavigate();
-
-  const Save = () => {
-    navigate('/'); 
-  };
+  const[user,setuser]=useState({
+    //"id": 0,
+    "doctorID": 0,
+    "patientID": 0,
+    "appointmentDate": "2023-07-05T11:43:55.729Z"
+  });
+  var login=()=>{
+    navigate("/Contact");
+    fetch("http://localhost:5035/api/User/AddAppointment",{
+        "method":"POST",
+        headers:{
+            "accept":"text/plain",
+            "Content-Type":"application/json",
+        },
+        // "body":JSON.stringify({...user})
+    })
+    .then(async (data)=>{
+        if(data.status >= 200 && data.status<=300){
+            var myData = await data.json();
+            alert("Appointment Booked")
+            navigate("/");
+        }
+    })
+    .catch((err)=>{
+        alert("Appointment Booked")
+        navigate("/");
+        console.log(err.error)
+    })
+}
   return (
         <>
           <Container variant='outlined'>
@@ -55,11 +81,11 @@ const AppointmentForm = () => {
               name='How Can We Help ?'
               item={['Serious', 'Need some suggestion', 'Need some help']}
             />
-            <InputComponent name='Name' />
-            <InputComponent name='Phone number' />
-            <InputComponent name='Email' />
-            <InputComponent name='Date' />
-            <CustomButton onClick={Save}>Book Appointment</CustomButton>
+            <InputComponent name='Doctor ID' onChange={(event)=>{setuser({...user,"doctorID":event.target.value})}}/>
+            <InputComponent name='Patient ID' onChange={(event)=>{setuser({...user,"patientID":event.target.value})}}/>
+            <InputComponent name='Date' /*onChange={(event)=>{setuser({...user,"appointmentDate":event.target.value})}} *//>
+            <InputComponent name='Description' />
+            <CustomButton onClick={login}>Book Appointment</CustomButton>
           </ContainerForm>
           </>
   );

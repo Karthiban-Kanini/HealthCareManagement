@@ -17,4 +17,7 @@ export const routeName = {
     APPROVE:'/approve',
     UPDATE:'/update',
     BOARD:'/board',
+    NAVBAR:'/navbar',
+    VIEWPATIENTS:'/viewpatients',
+    PATNAVBAR:'/patnavbar',
   }

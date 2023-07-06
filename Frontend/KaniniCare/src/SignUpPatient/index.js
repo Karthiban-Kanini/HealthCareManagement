@@ -31,7 +31,7 @@ const SignUpPatient = () => {
             var myData = await data.json();
             console.log("h");
             localStorage.setItem('email', myData.email);
-            navigate("/Contact/");
+            navigate("/PatNavbar");
         }
     })
     .catch((err)=>{
@@ -52,7 +52,7 @@ const SignUpPatient = () => {
                     <input type="password" onChange={(event)=>{setuser({...user,"password":event.target.value})}} placeholder='Password' />
                     <input type="password" {...register("confirmpwd")} placeholder='Confirm password' />
                     <div className="input-block register-btn">
-                       <Link to="/"><button onClick={login} className="register-button">Login</button></Link>        
+                       <Link to="/PatNavbar"><button onClick={login} className="register-button">Login</button></Link>        
                     </div>
                 </form>
             </div>

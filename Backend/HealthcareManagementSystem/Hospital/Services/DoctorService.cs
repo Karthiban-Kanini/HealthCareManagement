@@ -74,9 +74,9 @@ namespace Hospital.Services
             return resultUser;
         }
 
-        public DoctorUser UpdateDoctor(DoctorUser user)
+        public DoctorUser UpdateDoctor(UserDTO user)
         {
-            var users = _doctorRepo.GetByID(user.ID);
+            var users = _doctorRepo.Get(user.Email);
             if (users == null)
             {
                 return null;

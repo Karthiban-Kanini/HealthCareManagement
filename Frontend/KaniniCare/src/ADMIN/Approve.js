@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './Approve.css';
-import Board from './Board';
+import "./Approve.css";
+import Board from "./Board";
 
 const Approve = () => {
   const [doctors, setDoctors] = useState([]);
@@ -11,15 +11,18 @@ const Approve = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await fetch("http://localhost:5222/api/User/GetAll", {
+      const response = await fetch("http://localhost:5035/api/User/GetDoctor", {
         method: "GET",
         headers: {
-          "accept": "application/json",
+          "accept": "text/plain",
+          "Content-Type": "application/json",
         },
+       
       });
 
       if (response.ok) {
         const data = await response.json();
+        console.log("Fetched doctors:", data); 
         setDoctors(data);
       } else {
         console.log("Error:", response.status);
@@ -29,14 +32,17 @@ const Approve = () => {
     }
   };
 
-  const handleApprove = async (doctorId) => {
+  const handleApprove = async (email, status) => {
+    console.log("handleApprove called with email:", email, "and status:", status);
     try {
-      const response = await fetch(`http://localhost:5222/api/User/ApproveRequest/ApproveRequest?doctorId=${doctorId}`, {
+      const response = await fetch("http://localhost:5035/api/User/DoctorStatusChange", {
         method: "PUT",
         headers: {
           "accept": "text/plain",
-          "Content-Type" : "application/json"
+          "Content-Type": "application/json",
+          // Authorization: "Bearer " + localStorage.getItem("token"),
         },
+        body: JSON.stringify({ email, status: "Approved" }),
       });
 
       if (response.ok) {
@@ -49,34 +55,37 @@ const Approve = () => {
     }
   };
 
-  const pendingDoctors = doctors.filter(doctor => !doctor.status);
+  const pendingDoctors = doctors.filter(doctor => (doctor.status=="Pending"||doctor.status=="Disapproved"));
 
   return (
-    <div className="form-container-prof">
-      <Board/>
-      <h2>Approved Doctors</h2>
+    <div >
+      <Board />
+      <h1 className="form-container-prof">Doctors Approval</h1>
       <br />
-      <table className='docapptab'>
-        <thead className='docappthead'>
-          <tr className='appdoctr'>
-            <th className='appdocth'>Doctor Id</th>
-            <th className='appdocth'>Name</th>
-            <th className='appdocth'>Status</th>
-            <th className='appdocth'>Action</th>
+      <table class="table">
+        <thead >
+          <tr >
+            <th >Doctor Id</th>
+            <th >Name</th>
+            <th>Email</th>
+            <th >Status</th>
+            <th >Action</th>
           </tr>
         </thead>
         <tbody>
-          {pendingDoctors.map((doctor) => (
-            <tr key={doctor.doctorId}>
-              <td className='appdoctd'>{doctor.doctorId}</td>
-              <td className='appdoctd'>{doctor.doctorName}</td>
-              <td className='appdoctd'>{doctor.status ? "Approved" : "Pending"}</td>
-              <td className='appdoctd'>
-                {!doctor.status && (
-                  <button className='appdocbutto' onClick={() => handleApprove(doctor.doctorId)}>
+          {pendingDoctors.map((item,index) => (
+            <tr key={index} className="table-row">
+              <td >{item.id}</td>
+              <td >{item.name}</td>
+              <td>{item.email}</td>
+              <td >{item.status}</td>
+              <td >{item.action}
+             
+                {(item.status=="Pending"||item.status=="Disapproved") && (
+                  <button class="button"  onClick={() => handleApprove(item.email,item.status)}>
                     Approve
                   </button>
-                )}
+                )}   
               </td>
             </tr>
           ))}

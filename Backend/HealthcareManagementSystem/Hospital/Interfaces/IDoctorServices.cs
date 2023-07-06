@@ -10,6 +10,6 @@ namespace Hospital.Interfaces
         public UserDTO DoctorLogin(UserDTO user);
 
         public DoctorUser DeleteDoctor(int ID);
-        public DoctorUser UpdateDoctor(DoctorUser user);
+        public DoctorUser UpdateDoctor(UserDTO user);
     }
 }

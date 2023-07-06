@@ -10,7 +10,7 @@ const SignUpDoctor = () => {
   const onSubmit = data => console.log(data);
   const navigate = useNavigate();
   const[user,setuser]=useState({
-      // "id" : 0,
+      "id" : 0,
       "email": "",
       "password": "",
       "token": "",
@@ -24,14 +24,14 @@ const SignUpDoctor = () => {
             "accept":"text/plain",
             "Content-Type":"application/json",
         },
-        "body":JSON.stringify({...user})
+        "body":JSON.stringify({...user,"user":{}})
     })
     .then(async (data)=>{
         if(data.status >= 200 && data.status<=300){
             var myData = await data.json();
             console.log("Doctor Logged in Successful");
-            localStorage.setItem('email', myData.email);
-            navigate("/Contact/");
+            localStorage.setItem("email", myData.email);
+            navigate("/Navbar");
         }
     })
     .catch((err)=>{
@@ -52,10 +52,11 @@ const SignUpDoctor = () => {
                     <input type="password" onChange={(event)=>{setuser({...user,"password":event.target.value})}} placeholder='Password' />
                     <input type="password" {...register("confirmpwd")} placeholder='Confirm password' />
                     <div className="input-block register-btn">
-                       <Link to="/"><button onClick={login} className="register-button">Login</button></Link>        
+                       <Link to="/Navbar"><button onClick={login} className="register-button">Login</button></Link>        
                     </div>
                 </form>
             </div>
+            
             <div className="col-2">
                 <img src={bgImg} alt="" />
             </div>

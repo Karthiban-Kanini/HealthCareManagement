@@ -38,11 +38,9 @@ function Board(){
         <div>
         <div className="navbar">
                 <div className="nav-left">
-                <Link to='/doctorId'>List All Doctor</Link>
-                <Link to='/doctorid'>Get By ID</Link>
+                <Link to='/doctorId'>All Doctor</Link>
                 <Link to='/approve'>Approve Doctor</Link>
                 <Link to='/delete'>Delete Doctor</Link>
-                <Link to='/update'>Update Doctor</Link>
                 </div>
             <div className="nav-right">
                 <a onClick={logout}>Logout</a>

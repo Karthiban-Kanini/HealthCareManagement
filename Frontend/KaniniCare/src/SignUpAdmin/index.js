@@ -18,7 +18,7 @@ const SignUpAdmin = () => {
   });
 
   var login=()=>{
-    fetch("http://localhost:5035/api/User/LoginPatient",{
+    fetch("http://localhost:5035/api/User/LoginAdmin",{
         "method":"POST",
         headers:{
             "accept":"text/plain",
@@ -31,6 +31,7 @@ const SignUpAdmin = () => {
             var myData = await data.json();
             console.log("Admin Logged in Successfully");
             localStorage.setItem('email', myData.email);
+            alert("admin")
             navigate("/Board/");
         }
     })
@@ -52,7 +53,7 @@ const SignUpAdmin = () => {
                     <input type="password" onChange={(event)=>{setuser({...user,"password":event.target.value})}} placeholder='Password' />
                     <input type="password" {...register("confirmpwd")} placeholder='Confirm password' />
                     <div className="input-block register-btn">
-                       <Link to="/Admin/"><button onClick={login} className="register-button">Login</button></Link>        
+                       <Link to="/Board/"><button onClick={login} className="register-button">Login</button></Link>        
                     </div>
                 </form>
             </div>

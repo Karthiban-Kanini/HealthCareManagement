@@ -15,9 +15,11 @@ import SignUp from 'SignUp';
 import DoctorID from "ADMIN/DoctorId";
 import Delete from "ADMIN/Delete";
 import Approve from "ADMIN/Approve";
-import Update from "ADMIN/Update";
-import Admin from 'ADMIN/Admin';
+// import Update from "ADMIN/Update";
+import Navbar from 'ADMIN/PatNavbar';
+import PatNavbar from 'ADMIN/Navbar';
 import Board from 'ADMIN/Board';
+import ViewPatients from 'ADMIN/Viewpatients';
 
 type IRoute = {
   pathName: string,
@@ -78,17 +80,30 @@ export const routes: IRoute = [
   },{
     pathName: routeName.APPROVE,
     component: <Approve />,
-  },{
-    pathName: routeName.UPDATE,
-    component: <Update />,
-  },{
+  },
+  // {
+  //   pathName: routeName.UPDATE,
+  //   component: <Update />,
+  // },
+  {
     pathName: routeName.SIGNUPDOCTOR,
     component: <SignUpDoctor />,
-  },{
-    pathName: routeName.ADMIN,
-    component: <Admin />,
-  },{
+  },
+  {
+    pathName: routeName.NAVBAR,
+    component: <Navbar />,
+  },
+  {
+    pathName: routeName.PATNAVBAR,
+    component: <PatNavbar />,
+  },
+  {
     pathName: routeName.BOARD,
     component: <Board />,
+  },
+  {
+    pathName: routeName.VIEWPATIENTS,
+    component: <ViewPatients />,
   }
+  
 ];

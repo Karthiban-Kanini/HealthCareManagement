@@ -63,11 +63,12 @@ const RegisterPatient = () => {
                     <input type="password"   required className="input form-control" placeholder='Confirm password' />
                     <input type="number" required className="input form-control" onChange={(event)=>{setuser({...user,"age":event.target.value})}} placeholder="Age" />
                     <input type="date"   required className="input form-control" onChange={(event)=>{setuser({...user,"dateOfBirth":event.target.value})}} placeholder="Date Of Birth" />
-                    <input type="number" required className="input form-control" onChange={(event)=>{setuser({...user,"mobile":event.target.value})}} placeholder='Mobile number' />
+                    <input type="number" required className="input form-control" onChange={(event)=>{setuser({...user,"phoneNumber":event.target.value})}} placeholder='Mobile number' />
                   </div>
 
                   <div className="form-right">      
                     <input type="text"   required className="input form-control" onChange={(event)=>{setuser({...user,"email":event.target.value})}} placeholder='Email' />
+                    <input type="text"   required className="input form-control" onChange={(event)=>{setuser({...user,"gender":event.target.value})}} placeholder='Gender' />
                     <input type="text"   required className="input form-control" onChange={(event)=>{setuser({...user,"address":event.target.value})}} placeholder='Address' />
                     <input type="text"   required className="input form-control" onChange={(event)=>{setuser({...user,"maritalStatus":event.target.value})}} placeholder='Marital Status'/>
                     <input type="text"   required className="input form-control" onChange={(event)=>{setuser({...user,"bloodGroup":event.target.value})}}placeholder='Blood Group' />

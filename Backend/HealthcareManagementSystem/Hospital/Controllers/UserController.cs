@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Cors;
 
 namespace User.Controllers
 {
-    [EnableCors("MyCors")]
+    
 
     [Route("api/[controller]/[action]")]
 
     [ApiController]
+    [EnableCors("MyCors")]
 
     public class UserController : ControllerBase
     {
@@ -42,7 +43,7 @@ namespace User.Controllers
         [ProducesResponseType(typeof(DoctorUser), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
-        [Authorize(Roles = "Admin")]  
+        //[Authorize(Roles = "Admin")]  
 
         public ActionResult<String>DoctorStatusChange(UpdateStatusDTO updateStatus)
         {
@@ -224,7 +225,7 @@ namespace User.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
 
-        public ActionResult<DoctorUser> GetDoctor()
+        public ActionResult<List<DoctorUser>> GetDoctor()
         {
             try
             {
@@ -524,7 +525,7 @@ namespace User.Controllers
         [ProducesResponseType(typeof(DoctorUser), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
-        public ActionResult<DoctorUser> UpdateDoctor(DoctorUser user)
+        public ActionResult<DoctorUser> UpdateDoctor(UserDTO user)
         {
             try
             {
